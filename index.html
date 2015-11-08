@@ -1,0 +1,83 @@
+<html>
+<head>
+	<title>Snake Game - Portfolio 2</title>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script type="text/javascript" src="jquery-1.5.2.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src= "snake.js"> </script>
+
+<style>
+.myCell{
+  background:#FFFFFF;
+  width:800px;
+  height:800px;
+  float:left;
+}
+.sel{
+  background:#000000;
+}
+.foodApple{
+  background-image:url('apple.png');
+  background-repeat:no-repeat;
+}
+.foodCandy{
+  background-image:url('candy.jpg');
+  background-repeat:no-repeat;
+}
+.foodBacon{
+  background-image:url('bacon.jpg');
+  background-repeat:no-repeat;
+}
+.menu {
+	font-family:courier;
+	font-size:150%;
+}
+
+</style>
+
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Snake Game</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Game</a></li>
+        <li><a href="#">Leaderboard</a></li>
+        <li><a href="#">User Profile</a></li>
+      </ul>
+	  <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class = "menu" style="background-color:#e2e2e2; color:white;">
+	<center>
+		<i><b>Difficulty: </i></b>
+		<input type="submit" id="slow" class="btn btn-primary active btn-sm" value="Easy" onclick="setSpeed(500)" />
+		<input type="submit" id="medium" class="btn btn-primary active btn-sm" value="Medium" onclick="setSpeed(400)" />
+		<input type="submit" id="fast" class="btn btn-primary active btn-sm" value="Hard" onclick="setSpeed(350)" /> <br>
+		
+		<i><b>Game Type:</i></b>
+		<input type="submit" id="candy" class="btn btn-primary active btn-sm" value="Candy" onclick="setFood(candy)" />
+		<input type="submit" id="apple" class="btn btn-primary active btn-sm" value="Apple" onclick="setFood(apple)" />
+		<input type="submit" id="bacon" class="btn btn-primary active btn-sm" value="Bacon" onclick="setFood(bacon)" /> <br>
+		
+	</center>
+	<div align="left">	
+		<input type="submit" id="start" align="left" class="btn btn-primary btn-lg" value="Start" onclick="myinit()" /> <br>
+	</div>
+</div>
+<div class = "game">
+	<center>
+		<div id=div_main style="width:800px;height:800px;padding:0px;margin:0px;border:5px solid #FF0000;"><div><br>
+	</center>
+</div>	
+</body>
+</html> 

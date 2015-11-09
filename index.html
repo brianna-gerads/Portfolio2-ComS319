@@ -1,17 +1,17 @@
 <html>
 <head>
-	<title>Snake Game - Portfolio 2</title>
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<script type="text/javascript" src="jquery-1.5.2.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<title>Portfolio 2 - Snake Game</title>
+	<script type="text/javascript" src="jquery-1.5.2.min.js"></script> 
+	<!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<script src= "snake.js"> </script>
-
+	
+</head>
 <style>
-.myCell{
+.mycell{
   background:#FFFFFF;
-  width:800px;
-  height:800px;
+  width:25px;
+  height:25px;
   float:left;
 }
 .sel{
@@ -22,62 +22,214 @@
   background-repeat:no-repeat;
 }
 .foodCandy{
-  background-image:url('candy.jpg');
+  background-image:url('candy1.png');
   background-repeat:no-repeat;
 }
 .foodBacon{
-  background-image:url('bacon.jpg');
+  background-image:url('bacon.png');
   background-repeat:no-repeat;
 }
 .menu {
 	font-family:courier;
 	font-size:150%;
 }
-
 </style>
-
-<body>
-
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Snake Game</a>
-    </div>
-    <div>
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Game</a></li>
-        <li><a href="#">Leaderboard</a></li>
-        <li><a href="#">User Profile</a></li>
-      </ul>
-	  <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<div class = "menu" style="background-color:#e2e2e2; color:white;">
-	<center>
-		<i><b>Difficulty: </i></b>
-		<input type="submit" id="slow" class="btn btn-primary active btn-sm" value="Easy" onclick="setSpeed(500)" />
-		<input type="submit" id="medium" class="btn btn-primary active btn-sm" value="Medium" onclick="setSpeed(400)" />
-		<input type="submit" id="fast" class="btn btn-primary active btn-sm" value="Hard" onclick="setSpeed(350)" /> <br>
+<body style="background-color:#74ffd9">
+<center>
+<div id=menu style="padding:0px;">
+ <h1 style="font-family:courier;">Snake Game</h1> 
+ 		<b style="font-family:courier;">Difficulty:</b>
+		<input type="submit" id="slow" style="padding:2px;margin:1px;width:55px;" class="btn" value="Easy" onclick="setSpeed(500)" />
+		<input type="submit" id="medium" style="padding:2px;margin:1px;width:55px;" class="btn" value="Medium" onclick="setSpeed(400)" />
+		<input type="submit" id="fast" style="padding:2px;margin:1px;width:55px;" class="btn" value="Hard" onclick="setSpeed(350)" /> <br>
 		
-		<i><b>Game Type:</i></b>
-		<input type="submit" id="candy" class="btn btn-primary active btn-sm" value="Candy" onclick="setFood(candy)" />
-		<input type="submit" id="apple" class="btn btn-primary active btn-sm" value="Apple" onclick="setFood(apple)" />
-		<input type="submit" id="bacon" class="btn btn-primary active btn-sm" value="Bacon" onclick="setFood(bacon)" /> <br>
+		<b style="font-family:courier;">Game Type: </b>
+		<input type="submit" id="candy" style="padding:2px;margin:1px;width:55px;" class="btn" value="Candy" onclick="setFood('candy')" />
+		<input type="submit" id="apple" style="padding:2px;margin:1px;width:55px;" class="btn" value="Apple" onclick="setFood('apple')" />
+		<input type="submit" id="bacon" style="padding:2px;margin:1px;width:55px;" class="btn" value="Bacon" onclick="setFood('bacon')" /> <br>
 		
-	</center>
-	<div align="left">	
-		<input type="submit" id="start" align="left" class="btn btn-primary btn-lg" value="Start" onclick="myinit()" /> <br>
-	</div>
+		<input type="submit" id="start" style="padding:5px;margin:10px;"class="btn" value="Start Game" onclick="myinit()" /> <br>
+
+ <div id=div_main style="width:625px;height:625px;padding:0px;margin:5px;border:5px solid #5a5a5a;background-color:white;"><div><br>
 </div>
-<div class = "game">
-	<center>
-		<div id=div_main style="width:800px;height:800px;padding:0px;margin:0px;border:5px solid #FF0000;"><div><br>
-	</center>
-</div>	
+ </center> 
+ <script>
+	 var FoodType = 'candy';
+	 var speed = 400;
+	 var snake=["3_10","2_10","1_10"];
+	 var food="";
+	 var dir=1;
+	 var tail;
+
+	 function myinit() {
+		 dir=1;
+		 snake=["3_10","2_10","1_10"];
+		 food="";
+//		 FoodType = "apple";
+			$('#div_main').html("");
+			for (var r=0;r<25;r++){
+			  for (var c=0;c<25;c++){
+			$('#div_main').append('<div class="myCell" id="c_'+r+'_'+c+'"></div>');
+			  }
+			}
+			  $('#c_1_10').addClass('sel');
+			  $('#c_2_10').addClass('sel');
+			  $('#c_3_10').addClass('sel');
+			  generatefood();
+			  setTimeout(function(){gameupdate()}, speed);
+	 }
+	 
+	 function setSpeed(speedSET) {
+		speed = speedSET;
+	}
+
+	function setFood(foodType) {
+		if(foodType == 'apple') {
+			FoodType= 'apple';
+		} if(foodType == 'candy') {
+			FoodType= 'candy';
+		} if(foodType == 'bacon') {
+			FoodType= 'bacon';
+		}
+	}
+	 
+	 function generatefood(){
+		var r1 = Math.floor(Math.random() * 24);
+		var c1 = Math.floor(Math.random() * 24);
+		//$('#c_'+r1+'_'+c1).addClass('selA');
+		if(FoodType == 'apple') {
+			$('#c_'+r1+'_'+c1).addClass('foodApple');
+		}
+		if(FoodType == 'candy') {
+			$('#c_'+r1+'_'+c1).addClass('foodCandy');
+		}
+		if(FoodType == 'bacon') {
+			$('#c_'+r1+'_'+c1).addClass('foodBacon');
+		}
+		food=''+r1+'_'+c1;
+	 } 
+	 function gameupdate(){
+	  tail=snake.pop(); 
+	  $('#c_'+tail).removeClass('sel');
+	  var hh=snake[0];
+	  var rc=hh.split("_");
+	  var r=parseInt(rc[0]);
+	  var c=parseInt(rc[1]);
+	  switch(dir){
+		case 1: r=r+1; break; // Bottom
+		case 2: c=c-1; break; // Left
+		case 3: r=r-1; break; // Top
+		case 4: c=c+1; break;  // Right
+	  }  
+	  var nn=""+r+"_"+c;
+	  if (nn==food){
+		  snake.push(tail);
+		  $('#c_'+tail).addClass('sel');
+		  //$('#c_'+food).removeClass('selA');
+			if(FoodType == "apple") {
+				$('#c_'+food).removeClass('foodApple');
+			}
+			if(FoodType == "candy") {
+				$('#c_'+food).removeClass('foodCandy');
+			}
+			if(FoodType == "bacon") {
+				$('#c_'+food).removeClass('foodBacon');
+			}
+		  generatefood();
+	  }
+	  snake.unshift(nn);
+	  $('#c_'+nn).hasClass('sel'); 
+	  //condition to exist the Game !
+	  if (c<0 || r<0 || c>24 || r>24 ||  $('#c_'+nn).hasClass('background') ){
+		alert('You lost !');    
+		//myinit();
+		return;
+	  }  
+	  $('#c_'+nn).addClass('sel');       
+	  setTimeout(function(){gameupdate()}, speed);
+	 } 
+	 $(document).keydown(function(e){
+		if (e.keyCode == 37) { 
+		   dir=2;
+		}else if (e.keyCode == 38) { 
+		   dir=3;
+		}else if (e.keyCode == 39) { 
+		   dir=4;
+		}else if (e.keyCode == 40) { 
+		   dir=1;
+		}
+	});
+</script>
+<!-- <script>
+ var speed=200;
+ var dir=1;
+ var snake=["3_10","2_10","1_10"];
+ var food=""; 
+ function myinit(){
+    dir=1;
+    snake=["3_10","2_10","1_10"];
+    food="";
+    $('#div_main').html("");
+    for (var r=0;r<20;r++){
+      for (var c=0;c<20;c++){
+	$('#div_main').append('<div class=mycell id=c_'+r+'_'+c+'></div>');
+      }
+    }
+      $('#c_1_10').addClass('sel');
+      $('#c_2_10').addClass('sel');
+      $('#c_3_10').addClass('sel');
+      generatefood();
+      setTimeout(function(){gameupdate()}, speed);
+ }
+ myinit();
+ function generatefood(){
+    var r1 = Math.floor(Math.random() * 19);
+    var c1 = Math.floor(Math.random() * 19);
+    $('#c_'+r1+'_'+c1).addClass('selA');
+    food=''+r1+'_'+c1;
+ } 
+ function gameupdate(){
+  var tail=snake.pop(); 
+  $('#c_'+tail).removeClass('sel');
+  var hh=snake[0];
+  var rc=hh.split("_");
+  var r=parseInt(rc[0]);
+  var c=parseInt(rc[1]);
+  switch(dir){
+    case 1: r=r+1; break; // Bottom
+    case 2: c=c-1; break; // Left
+    case 3: r=r-1; break; // Top
+    case 4: c=c+1; break;  // Right
+  }  
+  var nn=""+r+"_"+c;
+  if (nn==food){
+      snake.push(tail);
+      $('#c_'+tail).addClass('sel');
+      $('#c_'+food).removeClass('selA');
+      generatefood();
+  }
+  snake.unshift(nn);
+  $('#c_'+nn).hasClass('sel'); 
+  //condition to exist the Game !
+  if (c<0 || r<0 || c>19 || r>19 ||  $('#c_'+nn).hasClass('sel') ){
+    alert('You lost !');    
+    myinit();
+    return;
+  }  
+  $('#c_'+nn).addClass('sel');       
+  setTimeout(function(){gameupdate()}, speed);
+ } 
+ $(document).keydown(function(e){
+    if (e.keyCode == 37) { 
+       dir=2;
+    }else if (e.keyCode == 38) { 
+       dir=3;
+    }else if (e.keyCode == 39) { 
+       dir=4;
+    }else if (e.keyCode == 40) { 
+       dir=1;
+    }
+});
+</script> -->
 </body>
 </html> 

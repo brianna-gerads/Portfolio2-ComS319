@@ -5,8 +5,6 @@
 	<!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	
-</head>
 <style>
 .u1 {
 	list-style-type: none;
@@ -20,7 +18,7 @@ li {
 a {
     display: block;
     width: 175px;
-    background-color: #cdb7b5;
+    <!--background-color: #cdb7b5; -->
 }
 .mycell{
   background:#FFFFFF;
@@ -36,11 +34,11 @@ a {
   background-repeat:no-repeat;
 }
 .foodCandy{
-  background-image:url('candy1.png');
+  background-image:url('lollipop.png');
   background-repeat:no-repeat;
 }
-.foodBacon{
-  background-image:url('bacon.png');
+.foodCherries{
+  background-image:url('cherry.png');
   background-repeat:no-repeat;
 }
 .menu {
@@ -48,16 +46,17 @@ a {
 	font-size:150%;
 }
 </style>
+</head>
 <body style="background-color:#74ffd9">
 <ul>
-<center>
+<!-- <center>
   <li><a href="#index">Game</a></li>
   <li><a href="#leaderboard">Leaderboard</a></li>
   <li><a href="#profile">User Profile</a></li>
   <li><a href="#signUp">Sign Up</a></li>
   <li><a href="#login">Login</a></li>
-  </center>
-</ul> <br>
+  </center> 
+</ul> <br> -->
 <center>
 <div id=menu style="padding:0px;">
  <h1 style="font-family:courier;">Snake Game</h1> 
@@ -69,7 +68,7 @@ a {
 		<b style="font-family:courier;">Game Type: </b>
 		<input type="submit" id="candy" style="padding:2px;margin:1px;width:55px;" class="btn" value="Candy" onclick="setFood('candy')" />
 		<input type="submit" id="apple" style="padding:2px;margin:1px;width:55px;" class="btn" value="Apple" onclick="setFood('apple')" />
-		<input type="submit" id="bacon" style="padding:2px;margin:1px;width:55px;" class="btn" value="Bacon" onclick="setFood('bacon')" /> <br>
+		<input type="submit" id="bacon" style="padding:2px;margin:1px;width:55px;" class="btn" value="Cherries" onclick="setFood('bacon')" /> <br>
 		
 		<input type="submit" id="start" style="padding:5px;margin:10px;"class="btn" value="Start Game" onclick="myinit()" /> <br>
 
@@ -128,7 +127,7 @@ a {
 			$('#c_'+r1+'_'+c1).addClass('foodCandy');
 		}
 		if(FoodType == 'bacon') {
-			$('#c_'+r1+'_'+c1).addClass('foodBacon');
+			$('#c_'+r1+'_'+c1).addClass('foodCherries');
 		}
 		food=''+r1+'_'+c1;
 	 } 
@@ -157,7 +156,7 @@ a {
 				$('#c_'+food).removeClass('foodCandy');
 			}
 			if(FoodType == "bacon") {
-				$('#c_'+food).removeClass('foodBacon');
+				$('#c_'+food).removeClass('foodCherries');
 			}
 		  generatefood();
 	  }
@@ -173,15 +172,24 @@ a {
 	  setTimeout(function(){gameupdate()}, speed);
 	 } 
 	 $(document).keydown(function(e){
-		if (e.keyCode == 37) { 
-		   dir=2;
-		}else if (e.keyCode == 38) { 
-		   dir=3;
-		}else if (e.keyCode == 39) { 
-		   dir=4;
-		}else if (e.keyCode == 40) { 
-		   dir=1;
-		}
+		if (e.keyCode == 37) {
+            if(dir == 4)
+                return false;
+            dir = 2;
+        } else if (e.keyCode == 38) {
+            if(dir == 1)
+                return false;
+            dir = 3;
+        } else if (e.keyCode == 39) {
+            if(dir == 2)
+                return false;
+            dir = 4;
+        } else if (e.keyCode == 40) {
+            if(dir == 3)
+                return false;
+            dir = 1;
+        }
+        return false;
 	});
 </script>
 <!-- <script>

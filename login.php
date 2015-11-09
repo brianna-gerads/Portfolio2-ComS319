@@ -10,7 +10,7 @@ $username = $_POST['username'];
 $password = $_POST['password'];
 
 //connect to database
-$con = new mysqli($dbhost, $dbuser, $dbpassword, $dbname, $dbport);
+$con = new mysqli($dbhost, $dbuser, $dbpassword);
 
 //check connection
 if(mysqli_connect_errno())

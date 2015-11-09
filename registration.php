@@ -1,11 +1,10 @@
 <?php
 
 //data base info
-$dbhost="mysql.cs.iastate.edu";
-$dbport=3306;
-$dbuser="u309SD";
-$dbpassword="KUnsv7qSd";
-$dbname="db309SD";
+//data base info
+$dbhost='dbosch-pi-2.student.iastate.edu';
+$dbuser='bri';
+$dbpassword='GbXTwLcWHLTrtApd';
 
 //get variables
 $username = $_POST['username'];
@@ -14,7 +13,7 @@ $email = $_POST['email'];
 
 
 //connect to database
-$con = new mysqli($dbhost, $dbuser, $dbpassword, $dbname, $dbport);
+$con = new mysqli($dbhost, $dbuser, $dbpassword);
 
 //check connection
 if(mysqli_connect_errno())

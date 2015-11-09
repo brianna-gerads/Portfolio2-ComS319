@@ -8,6 +8,20 @@
 	
 </head>
 <style>
+.u1 {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+	overflow: hidden;
+}
+li {
+    float: left;
+}
+a {
+    display: block;
+    width: 175px;
+    background-color: #cdb7b5;
+}
 .mycell{
   background:#FFFFFF;
   width:25px;
@@ -35,6 +49,15 @@
 }
 </style>
 <body style="background-color:#74ffd9">
+<ul>
+<center>
+  <li><a href="#index">Game</a></li>
+  <li><a href="#leaderboard">Leaderboard</a></li>
+  <li><a href="#profile">User Profile</a></li>
+  <li><a href="#signUp">Sign Up</a></li>
+  <li><a href="#login">Login</a></li>
+  </center>
+</ul> <br>
 <center>
 <div id=menu style="padding:0px;">
  <h1 style="font-family:courier;">Snake Game</h1> 
@@ -56,6 +79,7 @@
  <script>
 	 var FoodType = 'candy';
 	 var speed = 400;
+	 
 	 var snake=["3_10","2_10","1_10"];
 	 var food="";
 	 var dir=1;
